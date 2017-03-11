@@ -1,0 +1,29 @@
+GEMFILE: server-side
+--------------------
+
+=> Will be executed on the server-side because this file ensures the web application has access to the gem libraries it needs in order to run the Ruby code successfully.
+
+
+RUBY FILES: server-side
+-----------------------
+
+=> Will be executed on the server-side because these files need to be able to access the actual web application files such as the YAML file in the last exercise, which contained user data.
+
+
+STYLESHEETS: client-side
+------------------------
+
+=> Will be executed on the client-side because these are the files that "paint" the webpage and provide the styling.
+
+
+JAVASCRIPT FILES: client-side
+-----------------------------
+
+=> Will be excecuted on the client-side because these are the files that give the webpage user interactivity. For instance, the javascript file could be responsible for telling the browser what to do when the user clicks on a button. The event listener for this action needs be on the client-side.
+
+
+VIEW TEMPLATES (ERB): server-side
+---------------------------------
+
+=> Will be executed ton the server-side because these files contain ruby method calls and dynamic values which reference Ruby instance variables.
+
