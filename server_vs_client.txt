@@ -25,5 +25,5 @@ JAVASCRIPT FILES: client-side
 VIEW TEMPLATES (ERB): server-side
 ---------------------------------
 
-=> Will be executed ton the server-side because these files contain ruby method calls and dynamic values which reference Ruby instance variables.
+=> Will be executed on the server-side because these files contain ruby method calls and dynamic values which reference Ruby instance variables.
 

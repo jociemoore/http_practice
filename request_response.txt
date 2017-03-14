@@ -2,7 +2,7 @@
 # Question #1
 # ------------
 
-The required components of an HTTP request are the method and path. The optional components are parameters...headers, and body. 
+The required components of an HTTP request are the method and path. The optional components are parameters, headers, and body. 
 
 
 # ------------
