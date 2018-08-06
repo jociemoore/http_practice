@@ -1,0 +1,66 @@
+# ------------
+# Question #1
+# ------------
+
+https://amazon.com/Double-Stainless-Commercial-Refrigerator/B60HON32?ie=UTF8&qid=142952676&sr=93&keywords=commercial+fridge
+
+a.) HOST: amazon.com
+
+b.) QUERY PARAM NAMES: 'ie', 'qid', 'sr','keywords'
+
+c.) QUERY PARAM VALUES: 'UTF8', '142952676', '93', 'commercial+fridge'
+
+d.) PROTOCOL: HTTPS - https://
+
+e.) PATH: /Double-Stainless-Commercial-Refrigerator/B60HON32
+
+f.) PORT: 443 
+
+# ------------
+# Question #2
+# ------------
+
+http://amazon.com:3000/products/B60HON32?qid=142952676&sr=93
+
+# ------------
+# Question #3
+# ------------
+
+http://localhost:4567/todos/15
+
+a.) QUERY PARAMS: none
+
+b.) PROTOCOL: http
+
+c.) PATH: /todos/15
+
+d.) HOST: localhost
+
+e.) PORT: 4567
+
+# ------------
+# Question #4
+# ------------
+
+1. +
+2. %20
+
+# ------------
+# Question #5
+# ------------
+
+? -> beginning of parameters
+
+# ------------
+# Question #6
+# ------------
+ 
+= -> between name and value of query parameters
+
+# ------------
+# Question #7
+# ------------
+
+& -> between multiple parameters
+
+
