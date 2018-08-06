@@ -1,0 +1,11 @@
+# ------------
+# Question #1
+# ------------
+
+Using POST as the HTTP method for a request is not more secure than GET. This is because the information passed back and forth between the client and the server is easily accessible either way. For a GET method, the parameters exist in the URL, and for a POST method, the parameters exist in the body of the response, which is viewable in an inspector.
+
+# ------------
+# Question #2
+# ------------
+
+A web app can be secured so that data being sent between the client and the server cannot be viewed by other parties by using HTTPS.

@@ -1,0 +1,27 @@
+# ------------
+# Question #1
+# ------------
+
+The required components of an HTTP request are the method and path. The optional components are parameters, headers, and body. 
+
+
+# ------------
+# Question #2
+# ------------
+
+The required components of an HTTP response include the status code. The optional components are headers and the body.
+
+
+# ------------
+# Question #3
+# ------------
+
+The GET HTTP method will go and fetch data such as when you type in a URL. On the other hand, the POST HTTP method will send data to the server such as when you submit a form.
+
+
+# ------------
+# Question #4
+# ------------
+
+The host component of a URL is not included as part of an HTTP request.
+
