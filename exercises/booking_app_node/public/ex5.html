@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>Exercise 5</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <style>
+     #newStudentForm {
+         background: #ccc;
+         padding: 15px;
+         margin-top: 15px;
+     }
+    </style>
+  </head>
+  <body>
+    <script id="new-student" type="text/x-handlebars">
+      <h1>Please provide new student details</h1>
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" value="{{email}}">
+      <br>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+      <br>
+      <label for="booking_sequence">Booking Sequence:</label>
+      <input type="text" name="booking_sequence" id="booking_sequence" value="{{bookingSequence}}">
+      <br>
+      <input type="submit">
+    </script>
+
+    <h1>Schedules</h1>
+    <form method="post" action="/api/bookings">
+      <label for="id">Please select one schedule</label>
+      <select id="id" name="id">
+      </select>
+      <br>
+      <label for="student_email">Email:</label>
+      <input type="email" id="student_email" name="student_email" required>
+      <input id="btnSubmit" type="submit">
+    </form>
+
+    <script>
+     var newStudentTemplate = Handlebars.compile(document.querySelector("script[type='text/x-handlebars']").innerHTML);     
+     var form = document.querySelector('form');
+     var schedules;
+
+     function populateListBox(schedules) {
+         var scheduleList = document.querySelector('#id');
+         schedules.forEach(function(schedule) {
+             var row = document.createElement('option');
+             row.setAttribute('value', schedule.id);
+             row.textContent = schedule.staff_id + " | " + schedule.date + " | " + schedule.time;
+             scheduleList.appendChild(row);
+         });
+     }
+
+     function convertStaffIdsToNames(schedules, staffs) {
+         function getStaffName(id, staffs) {
+             return staffs.filter(function(staff) {
+                 return staff.id === id;
+             })[0].name;
+         }
+                 
+         schedules.forEach(function(schedule) {
+             schedule.staff_id = getStaffName(schedule.staff_id, staffs);
+         });
+
+         return schedules;
+     }
+     
+     (function() {
+         var xhr = new XMLHttpRequest();
+         xhr.open('GET', '/api/schedules');
+         xhr.responseType = 'json'
+         xhr.send();
+         xhr.addEventListener('load', function(event) {
+             schedules = xhr.response;
+             schedules = schedules.filter(function(schedule) {
+                 return !schedule.student_email;
+             });
+
+             var staffs = [];
+             (function() {
+                 var xhr = new XMLHttpRequest();
+                 xhr.open('GET', '/api/staff_members');
+                 xhr.responseType = 'json'
+                 xhr.send();
+                 xhr.addEventListener('load', function(event) {
+                     staffs = xhr.response;
+                     schedules = convertStaffIdsToNames(schedules, staffs);
+                     populateListBox(schedules);
+                 });
+             })();
+         });
+     })();
+
+     function showBookingTemplate(data) {
+         var newStudentForm = document.createElement('form');
+         newStudentForm.setAttribute('method', 'post');
+         newStudentForm.setAttribute('action', '/api/students');
+         newStudentForm.setAttribute('id', 'newStudentForm');
+         newStudentForm.innerHTML = newStudentTemplate(data);
+         document.querySelector('body').appendChild(newStudentForm);
+     }
+     
+     function formDataToJson(formData) {
+         var json = {};
+         for (var pair of formData.entries()) {
+             json[pair[0]] = pair[1];
+         }
+
+         return json;
+     }
+
+     form.addEventListener('submit', function(event) {
+         event.preventDefault();
+         var formData = new FormData(form);
+         var json = JSON.stringify(formDataToJson(formData));
+         var xhr = new XMLHttpRequest();
+
+         xhr.open('POST', form.action);
+         xhr.setRequestHeader('Content-Type', 'application/json');
+         xhr.send(json);
+         
+         xhr.addEventListener('load', function(event) {
+             switch (xhr.status) {
+                 case 204:
+                     alert('Booked');
+                     window.location.href = "/ex5.html"
+                     break;
+                 case 404:
+                     alert(xhr.responseText);                                  
+                     bookingSequence = xhr.responseText.split(':')[1].trim();
+                     showBookingTemplate({email: form['student_email'].value, bookingSequence: bookingSequence});
+                     var newStudentForm = document.querySelector('#newStudentForm')
+                     newStudentForm.addEventListener('submit', function(event) {
+                         event.preventDefault();
+                         var xhr2 = new XMLHttpRequest();
+                         var formData2 = new FormData(newStudentForm);
+                         var json2 = JSON.stringify(formDataToJson(formData2));
+                         
+                         xhr2.open('POST', newStudentForm.action);
+                         xhr2.setRequestHeader('Content-Type', 'application/json');
+                         xhr2.send(json2);
+
+                         xhr2.addEventListener('load', function(event) {
+                             alert(xhr2.responseText);
+                             if (xhr2.status === 201) {
+                                 newStudentForm.reset();
+                                 formData.set('student_email', formData2.get('email'));
+                                 form.dispatchEvent(new Event('submit'))
+                             }
+                         });
+                     });
+             }
+         });
+     });
+    </script>
+</html>

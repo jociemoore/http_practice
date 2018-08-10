@@ -1,0 +1,23 @@
+1. How many staff are there?
+http://localhost:3000/api/staff_members
+There are 5 staff members.
+
+2. How many students are there?
+http://localhost:3000/api/students
+There are 5 students.
+
+3. How many schedules exist?
+http://localhost:3000/api/schedules
+There are 8 schedules.
+
+4. How many schedules have bookings?
+http://localhost:3000/api/schedules
+Looking at the student_email values, you can see there are only 2 bookings.
+
+5. Do all staff have schedules?
+http://localhost:3000/api/schedules
+By looking at the staff_id values, you can see only 3 staff have schedules.
+
+6. Did all students book a schedule?
+http://localhost:3000/api/schedules
+Looking at the student_email values, you can see there are two different students that have booked a schedule.
